@@ -1,7 +1,7 @@
 import scrapy
 from switchgames.items import SwitchgamesItem
 import re
-from datetime import datetime
+
 
 class GamesSpider(scrapy.Spider):
     name = "SwitchGames"
