@@ -86,7 +86,9 @@ The next step from here would be clean the data and analise it.
 ** Reference Tutorial**
 
 https://docs.scrapy.org/en/latest/intro/tutorial.html
+
 https://docs.scrapy.org/en/latest/topics/selectors.html#topics-selectors
+
 https://towardsdatascience.com/using-scrapy-to-build-your-own-dataset-64ea2d7d4673
 
 
