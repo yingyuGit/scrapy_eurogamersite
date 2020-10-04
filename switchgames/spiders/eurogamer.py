@@ -5,17 +5,20 @@ from datetime import datetime
 
 class GamesSpider(scrapy.Spider):
     name = "SwitchGames"
+
+    # Getting Urls, in Eurogamer's case the URL increase by 100 units. Getting first three pages.
     start_urls = ['https://www.eurogamer.net/archive/switch']
     npages = 100
     for n in range(100, npages + 200, 100):
         start_urls.append('https://www.eurogamer.net/archive/switch?start=' + str(n))
 
-
+    # Extracting all urls from the pages in the response object.
     def parse(self, response):
         for href in response.xpath("//h2[contains(@class, 'title')]/a//@href"):
             url  = "https://www.eurogamer.net" + href.extract()
             yield scrapy.Request(url, callback=self.parse_dir_contents)
 
+    # Extarcting data from each pages.
     def parse_dir_contents(self, response):
         item = SwitchgamesItem()
 
@@ -31,16 +34,3 @@ class GamesSpider(scrapy.Spider):
         item['newsUrl'] = response.xpath("//meta[@property='og:url']/@content").extract()
 
         yield item
-
-
-"""
-# start page
-https://www.eurogamer.net/archive/switch
-# from second page on
-https://www.eurogamer.net/archive/switch?start=100
-https://www.eurogamer.net/archive/switch?start=200
-https://www.eurogamer.net/archive/switch?start=300
-
-# News page url sample
-https://www.eurogamer.net/articles/2020-07-28-paper-mario-invades-tetris-99-for-next-special-cup
-"""
